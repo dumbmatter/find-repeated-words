@@ -1,0 +1,20 @@
+find-repeated-words
+===================
+
+Website: https://github.com/jdscheff/find-repeated-words.py
+Author:  Jeremy Scheff <jdscheff@gmail.com>
+
+This simple Python script takes a text file as input and outputs an HTML file
+with words that are repeatedly used close together highlighted.
+
+Usage
+-----
+
+./find-repeated-words.py input.txt
+
+./find-repeated-words.py input.txt output.html
+
+If only an input file is given, then output will be saved with the same name
+but .html. So the first example will save the output as input.html, and the
+second example will save it as output.html.
+

@@ -1,7 +1,21 @@
 #!/usr/bin/env python
 
+import sys
 from string import punctuation
 from operator import itemgetter
+
+# Check command line inputs
+if len(sys.argv) == 1:
+    print 'Pass the input text file as the first argument.'
+    sys.exit()
+elif len(sys.argv) == 2:
+    infile = sys.argv[1]
+    outfile = '%s.html' % (infile.split('.')[0],)
+else:
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
+
+print infile, outfile
 
 N = 10
 words = {} # Dict of word frequencies
@@ -11,7 +25,7 @@ articles = ['the', 'a', 'of', 'and', 'in', 'et', 'al'] # Common articles to igno
 
 # Build lists
 
-words_gen = (word.strip(punctuation).lower() for line in open('test')
+words_gen = (word.strip(punctuation).lower() for line in open(infile)
                                              for word in line.split())
 
 i = 0
@@ -28,7 +42,7 @@ for word in words_gen:
 
 # Calculate scores
 
-words_gen = (word.strip(punctuation).lower() for line in open('test')
+words_gen = (word.strip(punctuation).lower() for line in open(infile)
                                              for word in line.split())
 
 i = 0
@@ -45,11 +59,13 @@ scores = [score*1.0/max(scores) for score in scores] # Scale from 0 to 1
 
 # Write colored output
 
-f = open('test.html', 'w');
+f = open(outfile, 'w');
 i = 0
-for line in open('test'):
+for line in open(infile):
     for word in line.split():
         f.write('<span style="background: rgb(%i, 255, 255)">%s</span> ' % ((1-scores[i])*255, word))
         i += 1
     f.write('<br /><br />')
 f.close()
+
+print 'Output saved to %s' % (outfile,)
